@@ -1,0 +1,658 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package view;
+
+import bean.LfsCliente;
+import dao.DAO_Cliente;
+import tools.Util;
+
+/**
+ *
+ * @author Laura
+ */
+public class JDlgClientes extends javax.swing.JDialog {  // ele não está funcioando pq não quer!
+
+    private boolean incluir;
+    private boolean cnpjvalido;
+
+    /**
+     * Creates new form JDlgCliente
+     */
+    
+    public void cnpjInvalido() {
+        String cnpj = jFmtLfs_cnpj.getText().trim();
+
+        if (cnpj.equals("  .   .   /    -  ") || cnpj.isEmpty()) {
+            cnpjvalido = false;
+            return;
+        }
+
+        if (!validacaoDeCNPJ(cnpj)) {
+            cnpjvalido = false;
+            javax.swing.JOptionPane.showMessageDialog(
+                JDlgClientes.this,
+                "CNPJ inválido, verifique a escrita.",
+                "Erro de Validação",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            jFmtLfs_cnpj.requestFocus();
+        } else {
+            cnpjvalido = true;
+        }
+    }
+    
+    public JDlgClientes(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Cadastro Cliente");
+
+        Util.habilitar(false, jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                jTxtLfs_Cep,
+                jTxtLfs_email,
+                jFmtLfs_telefone,
+                jCboLfs_forma_pagamento,
+                jFmtLfs_dataUltimoLogin,
+                jTxtLfs_preferencias,
+                jTxtLfs_observacoes,
+                jFmtLfs_dataCadastro,
+                jFmtLfs_cnpj,
+                jBtnConfirmar, jBtnCancelar, jBtnAlterar, jBtnExcluir);
+        jFmtLfs_cnpj.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cnpjInvalido();
+            }
+        });
+    }
+
+    public void beanView(LfsCliente lfsCliente) {
+        jTxtIdlfs_Cliente.setText(Util.intToStr(lfsCliente.getIdlfsCliente()));
+        jTxtLfs_Nome_completo.setText(lfsCliente.getLfsNomeCompleto());
+        jFmtLfs_cpf.setText(lfsCliente.getLfsCpf());
+        jFmtLfs_RG.setText(lfsCliente.getLfsRg());
+        jCboLfs_genero.setSelectedIndex(lfsCliente.getLfsGenero());
+        jFmtLfs_dataNascimento.setText(Util.dateToStr(lfsCliente.getLfsDataNascimento()));
+        jFmtLfs_dataUltimoLogin.setText(Util.dateToStr(lfsCliente.getLfsDataUltimoLogin()));
+        jTxtLfs_email.setText(lfsCliente.getLfsEmail());
+        jTxtLfs_Cep.setText(lfsCliente.getLfsCep());
+        jPwdLfs_senha.setText(lfsCliente.getLfsSenha());
+        jCboLfs_forma_pagamento.setSelectedIndex(lfsCliente.getLfsFormaPagamento());
+        jTxtLfs_preferencias.setText(lfsCliente.getLfsPreferencias());
+        jFmtLfs_telefone.setText(lfsCliente.getLfsTelefone());
+        jTxtLfs_observacoes.setText(lfsCliente.getLfsObservacoes());
+        jFmtLfs_dataCadastro.setText(Util.dateToStr(lfsCliente.getLfsDataCadastro()));
+        jFmtLfs_cnpj.setText(lfsCliente.getLfsCnpj());
+
+    }
+
+    public LfsCliente viewBean() {
+        LfsCliente lfsCliente = new LfsCliente();
+        int codigo = Util.strToInt(jTxtIdlfs_Cliente.getText());
+        lfsCliente.setIdlfsCliente(codigo);
+        lfsCliente.setLfsNomeCompleto(jTxtLfs_Nome_completo.getText());
+        lfsCliente.setLfsCpf(jFmtLfs_cpf.getText());
+        lfsCliente.setLfsRg(jFmtLfs_RG.getText());
+        lfsCliente.setLfsGenero(jCboLfs_genero.getSelectedIndex());
+        lfsCliente.setLfsDataNascimento(Util.strToDate(jFmtLfs_dataNascimento.getText()));
+        lfsCliente.setLfsDataUltimoLogin(Util.strToDate(jFmtLfs_dataUltimoLogin.getText()));
+        lfsCliente.setLfsEmail(jTxtLfs_email.getText());
+        lfsCliente.setLfsCep(jTxtLfs_Cep.getText());
+        lfsCliente.setLfsFormaPagamento(jCboLfs_forma_pagamento.getSelectedIndex());
+        lfsCliente.setLfsDataUltimoLogin(Util.strToDate(jFmtLfs_dataUltimoLogin.getText()));
+        lfsCliente.setLfsPreferencias(jTxtLfs_preferencias.getText());
+        lfsCliente.setLfsTelefone(jFmtLfs_telefone.getText());
+        lfsCliente.setLfsObservacoes(jTxtLfs_observacoes.getText());
+        lfsCliente.setLfsDataCadastro(Util.strToDate(jFmtLfs_dataCadastro.getText()));
+        lfsCliente.setLfsSenha(jPwdLfs_senha.getText());
+        lfsCliente.setLfsCnpj(jFmtLfs_cnpj.getText());
+        return lfsCliente;
+    }
+
+    private boolean validacaoDeCNPJ(String cnpj) {
+        cnpj = cnpj.replaceAll("[^\\d]", "");
+
+        if (cnpj.length() != 14) {
+            return false;
+        }
+        if (cnpj.matches("(\\d)\\1{13}")) {
+            return false;
+        }
+
+        try {
+            int soma = 0;
+            int peso = 2;
+            for (int i = 11; i >= 0; i--) {
+                soma += (cnpj.charAt(i) - '0') * peso;
+                peso = (peso == 9) ? 2 : peso + 1;
+            }
+            int digito1 = 11 - (soma % 11);
+            if (digito1 >= 10) {
+                digito1 = 0;
+            }
+
+            soma = 0;
+            peso = 2;
+            for (int i = 12; i >= 0; i--) {
+                soma += (cnpj.charAt(i) - '0') * peso;
+                peso = (peso == 9) ? 2 : peso + 1;
+            }
+            int digito2 = 11 - (soma % 11);
+            if (digito2 >= 10) {
+                digito2 = 0;
+            }
+
+            return (cnpj.charAt(12) - '0' == digito1) && (cnpj.charAt(13) - '0' == digito2);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jBtnConfirmar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jFmtLfs_dataUltimoLogin = new javax.swing.JFormattedTextField();
+        jBtnCancelar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jFmtLfs_RG = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jBtnPesquisar = new javax.swing.JButton();
+        jTxtLfs_Nome_completo = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTxtLfs_preferencias = new javax.swing.JTextField();
+        jTxtLfs_Cep = new javax.swing.JTextField();
+        jCboLfs_genero = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTxtLfs_observacoes = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jFmtLfs_cpf = new javax.swing.JFormattedTextField();
+        jFmtLfs_dataCadastro = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jFmtLfs_dataNascimento = new javax.swing.JFormattedTextField();
+        jTxtLfs_email = new javax.swing.JTextField();
+        jBtnIncluir = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jFmtLfs_telefone = new javax.swing.JFormattedTextField();
+        jBtnAlterar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jCboLfs_forma_pagamento = new javax.swing.JComboBox<>();
+        jBtnExcluir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPwdLfs_senha = new javax.swing.JPasswordField();
+        jLabel12 = new javax.swing.JLabel();
+        jTxtIdlfs_Cliente = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jFmtLfs_cnpj = new javax.swing.JFormattedTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/confirmar.jpg"))); // NOI18N
+        jBtnConfirmar.setText("confirmar");
+        jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnConfirmarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("RG");
+
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancelar.png"))); // NOI18N
+        jBtnCancelar.setText("cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nome Completo");
+
+        jLabel13.setText("Preferencias");
+
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisar.png"))); // NOI18N
+        jBtnPesquisar.setText("pesquisar");
+        jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Cep");
+
+        jCboLfs_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "Nao dizer" }));
+
+        jLabel3.setText("Genero");
+
+        jLabel14.setText("Observacoes");
+
+        jTxtLfs_observacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtLfs_observacoesActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("CPF");
+
+        jLabel15.setText("Data Cadastro");
+
+        jFmtLfs_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFmtLfs_cpfActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Email");
+
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
+        jBtnIncluir.setText("incluir");
+        jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnIncluirActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Telefone");
+
+        jLabel5.setText("Data de Nascimento");
+
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alterar.png"))); // NOI18N
+        jBtnAlterar.setText("alterar");
+        jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAlterarActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Forma Pagamento");
+
+        jLabel6.setText("Senha");
+
+        jCboLfs_forma_pagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartao", "Dinheiro", "Pix", "Cheque" }));
+
+        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
+        jBtnExcluir.setText("excluir");
+        jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExcluirActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID");
+
+        jLabel12.setText("Data Ultimo Login");
+
+        jTxtIdlfs_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtIdlfs_ClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("CNPJ");
+
+        try {
+            jFmtLfs_cnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFmtLfs_cnpj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFmtLfs_cnpjActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnIncluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnAlterar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnConfirmar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnPesquisar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jTxtIdlfs_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(209, 209, 209))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTxtLfs_Nome_completo)
+                                        .addGap(18, 18, 18))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jFmtLfs_dataNascimento, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(jPwdLfs_senha)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jTxtLfs_email, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jTxtLfs_preferencias, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(23, 23, 23)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jFmtLfs_telefone, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jTxtLfs_observacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCboLfs_genero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jFmtLfs_RG, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel11)
+                            .addComponent(jCboLfs_forma_pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jFmtLfs_dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFmtLfs_cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel12)
+                            .addComponent(jFmtLfs_dataUltimoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jTxtLfs_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFmtLfs_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(32, 32, 32))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtIdlfs_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtLfs_Nome_completo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboLfs_genero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtLfs_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFmtLfs_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPwdLfs_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtLfs_RG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtLfs_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtLfs_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtLfs_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboLfs_forma_pagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtLfs_dataUltimoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTxtLfs_preferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtLfs_observacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFmtLfs_dataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFmtLfs_cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnIncluir)
+                    .addComponent(jBtnAlterar)
+                    .addComponent(jBtnExcluir)
+                    .addComponent(jBtnConfirmar)
+                    .addComponent(jBtnCancelar)
+                    .addComponent(jBtnPesquisar))
+                .addGap(21, 21, 21))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
+        this.cnpjInvalido();
+        if(cnpjvalido) {
+            DAO_Cliente clienteDAO = new DAO_Cliente();
+            if (incluir) {
+                clienteDAO.insert(viewBean());
+            } else {
+                clienteDAO.update(viewBean());
+            }
+            Util.habilitar(false, jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
+
+            Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+            Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                    jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                    jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                    jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                    jFmtLfs_dataCadastro, jFmtLfs_cnpj);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                JDlgClientes.this,
+                "CNPJ inválido, verifique a escrita.",
+                "Erro de Validação",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jBtnConfirmarActionPerformed
+
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
+        Util.habilitar(false, jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
+
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero);
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
+
+        JDlgClientePesquisar jDlgClientePesquisar = new JDlgClientePesquisar(null, true);
+        jDlgClientePesquisar.setTelaAnterior(this);
+        jDlgClientePesquisar.setVisible(true);
+        Util.habilitar(false, jBtnPesquisar, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
+    }//GEN-LAST:event_jBtnPesquisarActionPerformed
+
+    private void jTxtLfs_observacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtLfs_observacoesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtLfs_observacoesActionPerformed
+
+    private void jFmtLfs_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtLfs_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFmtLfs_cpfActionPerformed
+
+    private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
+        incluir = true;
+        Util.habilitar(true, jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
+
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtIdlfs_Cliente.grabFocus();
+    }//GEN-LAST:event_jBtnIncluirActionPerformed
+
+    private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+        incluir = false;
+        Util.habilitar(true, jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
+
+        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        jTxtLfs_Nome_completo.grabFocus();
+    }//GEN-LAST:event_jBtnAlterarActionPerformed
+
+    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            DAO_Cliente clienteDAO = new DAO_Cliente();
+            clienteDAO.delete(viewBean());
+            Util.habilitar(true, jBtnPesquisar, jBtnIncluir);
+            Util.habilitar(false, jBtnAlterar, jBtnExcluir);
+
+            Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                    jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                    jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                    jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                    jFmtLfs_dataCadastro, jFmtLfs_cnpj);
+        }
+
+    }//GEN-LAST:event_jBtnExcluirActionPerformed
+
+    private void jTxtIdlfs_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIdlfs_ClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtIdlfs_ClienteActionPerformed
+
+    private void jFmtLfs_cnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtLfs_cnpjActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFmtLfs_cnpjActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JDlgClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JDlgClientes dialog = new JDlgClientes(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAlterar;
+    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnConfirmar;
+    private javax.swing.JButton jBtnExcluir;
+    private javax.swing.JButton jBtnIncluir;
+    private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JComboBox<String> jCboLfs_forma_pagamento;
+    private javax.swing.JComboBox<String> jCboLfs_genero;
+    private javax.swing.JFormattedTextField jFmtLfs_RG;
+    private javax.swing.JFormattedTextField jFmtLfs_cnpj;
+    private javax.swing.JFormattedTextField jFmtLfs_cpf;
+    private javax.swing.JFormattedTextField jFmtLfs_dataCadastro;
+    private javax.swing.JFormattedTextField jFmtLfs_dataNascimento;
+    private javax.swing.JFormattedTextField jFmtLfs_dataUltimoLogin;
+    private javax.swing.JFormattedTextField jFmtLfs_telefone;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPasswordField jPwdLfs_senha;
+    private javax.swing.JTextField jTxtIdlfs_Cliente;
+    private javax.swing.JTextField jTxtLfs_Cep;
+    private javax.swing.JTextField jTxtLfs_Nome_completo;
+    private javax.swing.JTextField jTxtLfs_email;
+    private javax.swing.JTextField jTxtLfs_observacoes;
+    private javax.swing.JTextField jTxtLfs_preferencias;
+    // End of variables declaration//GEN-END:variables
+}
