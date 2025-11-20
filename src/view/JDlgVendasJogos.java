@@ -42,7 +42,7 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Produtos");
+        jLabel1.setText("Nome Jogo");
 
         jLabel2.setText("Quantidade");
 

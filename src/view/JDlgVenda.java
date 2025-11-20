@@ -9,9 +9,11 @@ import bean.LfsVenda;
 import bean.LfsVendedor;
 import dao.DAO_Venda;
 import dao.DAO_Cliente;
+import dao.DAO_Vendajogos;
 import dao.DAO_Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,29 +23,33 @@ import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 public class JDlgVenda extends javax.swing.JDialog {
+     ControlerVendasJogos controlerVendasJogos;
+    boolean incluir;
+    
 
     /**
      * Creates new form JDlgUsuario
      */
-    boolean incluir = false;
-    private MaskFormatter mascaraDataVenda;
-    DAO_Vendedor dao_vendedor = new DAO_Vendedor();
-    DAO_Cliente dao_cliente = new DAO_Cliente();
-
+   
     public JDlgVenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        Util.habilitar(false, jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jFmtLfs_dataVenda, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir);
         setTitle("Movimento Venda");
-        List vendedores = (List) dao_vendedor.listAll();
-        for (Object vendedor : vendedores) {
-            jCboLfs_fk_vendedor.addItem((LfsVendedor) vendedor);
+        DAO_Cliente clienteDAO = new DAO_Cliente();
+        
+        List lista = (List) clienteDAO.listAll();
+        for (int i = 0; i < lista.size(); i++) {
+            jCboLfs_fk_vendedor.addItem((LfsVendedor) lista.get(i));
+        }        
+          DAO_Vendedor DAO_vendedor = new DAO_Vendedor();
+        List listaVend = (List) DAO_vendedor.listAll();
+        for (Object object : listaVend) {
+            jCboLfs_fk_vendedor.addItem((LfsVendedor) object);
         }
-        List clientes = (List) dao_cliente.listAll();
-        for (Object cliente : clientes) {
-            jCboLfs_fk_cliente.addItem((LfsCliente) cliente);
-        }
+        controlerVendasJogos = new ControlerVendasJogos();
+        controlerVendasJogos.setList(new ArrayList());
+        jTable1.setModel(controlerVendasJogos);
     }
 
     public void beanView(LfsVenda lfsVenda) {
@@ -58,8 +64,11 @@ public class JDlgVenda extends javax.swing.JDialog {
         } else {
             jCboLfs_status_Venda.setSelectedIndex(1);
         }
+      //está dando um erro por conta do listAll   DAO_Vendajogos DAO_vendajogos = new DAO_Vendajogos() {};
+        List lista = (List) DAO_vendajogos.listProutos(lfsVenda);
+        controlerVendasJogos.setList(lista);
     }
-
+       
     public LfsVenda viewBean() {
         LfsVenda lfsVenda = new LfsVenda();
         int codigo = Util.strToInt(jTxtLfs_idVenda.getText());
