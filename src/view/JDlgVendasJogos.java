@@ -5,11 +5,17 @@
  */
 package view;
 
+import bean.LfsJogos;
+import bean.LfsVendasJogos;
+import java.util.List;
+import tools.Util;
+
 /**
  *
  * @author u0788197419
  */
 public class JDlgVendasJogos extends javax.swing.JDialog {
+    JDlgVenda jDlgvenda;
 
     /**
      * Creates new form JDlgPedidosProdutos
@@ -18,7 +24,20 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+         jTextQuant.setText("1");
+        DAO_Jogos dao_jogos = new DAO_Jogos();
+        List lista = (List) dao_jogos.listAll();
+        for (Object object : lista) {
+            jCboNomeJogo.addItem((LfsJogos) object);
+        }
+        Util.habilitar(false, jTextUnitario, jTxtTotal);
+       
     }
+    
+    public void setTelaAnterior(JDlgVenda jDlgvenda) {
+        this.jDlgvenda = jDlgvenda;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,12 +50,12 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jCboNomeJogo = new javax.swing.JComboBox<LfsJogos>();
+        jTextQuant = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextUnitario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTxtTotal = new javax.swing.JTextField();
         jBtnOK = new javax.swing.JToggleButton();
         jBtnCancelar = new javax.swing.JToggleButton();
 
@@ -46,9 +65,38 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
 
         jLabel2.setText("Quantidade");
 
+        jCboNomeJogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboNomeJogoActionPerformed(evt);
+            }
+        });
+
+        jTextQuant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextQuantActionPerformed(evt);
+            }
+        });
+        jTextQuant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextQuantKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Valor unitario");
 
+        jTextUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextUnitarioActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Total");
+
+        jTxtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtTotalActionPerformed(evt);
+            }
+        });
 
         jBtnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/confirmar.jpg"))); // NOI18N
         jBtnOK.setText("OK");
@@ -79,19 +127,19 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
                         .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCboNomeJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1))
+                                .addComponent(jTextQuant))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,19 +147,19 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(2, 2, 2)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCboNomeJogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel4))
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -124,6 +172,11 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
 
     private void jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOKActionPerformed
         // TODO add your handling code here:
+      LfsVendasJogos lfsvendasjogos = new LfsVendasJogos();
+        lfsvendasjogos.setLfsJogos((LfsJogos) jCboNomeJogo.getSelectedItem());
+        lfsvendasjogos.setLfsQuantidade(Util.strToInt(jTextQuant.getText()) );
+        lfsvendasjogos.setLfsValorUnitario(Util.strToDouble(jTextUnitario.getText()) );                
+        jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
         setVisible(false);
     }//GEN-LAST:event_jBtnOKActionPerformed
 
@@ -131,6 +184,39 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jTxtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtTotalActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTxtTotalActionPerformed
+
+    private void jCboNomeJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboNomeJogoActionPerformed
+        // TODO add your handling code here:
+      LfsJogos lfsjogos = (LfsJogos) jCboNomeJogo.getSelectedItem();
+        jTextUnitario.setText(Util.doubleToStr(LfsJogos.getLfsValorUnitario()));
+        int quant = Util.strToInt(jTextQuant.getText());
+        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsValorUnitario()));
+
+    }//GEN-LAST:event_jCboNomeJogoActionPerformed
+
+    private void jTextUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUnitarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextUnitarioActionPerformed
+
+    private void jTextQuantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextQuantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextQuantActionPerformed
+
+    private void jTextQuantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextQuantKeyReleased
+        // TODO add your handling code here:
+         if(jTextQuant.getText().isEmpty() == false){
+      LfsJogos lfsjogos = (LfsJogos) jCboNomeJogo.getSelectedItem();
+        int quant = Util.strToInt(jTextQuant.getText());
+        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsValorUnitario()));
+       } else {
+           Util.limpar(jTxtTotal);
+       }
+    }//GEN-LAST:event_jTextQuantKeyReleased
 
     /**
      * @param args the command line arguments
@@ -178,13 +264,13 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton jBtnCancelar;
     private javax.swing.JToggleButton jBtnOK;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<LfsJogos> jCboNomeJogo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextQuant;
+    private javax.swing.JTextField jTextUnitario;
+    private javax.swing.JTextField jTxtTotal;
     // End of variables declaration//GEN-END:variables
 }

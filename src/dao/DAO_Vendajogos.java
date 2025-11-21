@@ -56,7 +56,7 @@ public abstract class DAO_Vendajogos extends DAO_Abstract{
 
       public Object listVendas(LfsVenda venda) {
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(DAO_Venda.class);
+        Criteria criteria = session.createCriteria(LfsVendasJogos.class);
         criteria.add(Restrictions.eq("vendas", venda));
         List lista = criteria.list();
         session.getTransaction().commit();        

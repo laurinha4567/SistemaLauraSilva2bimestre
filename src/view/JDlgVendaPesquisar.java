@@ -4,6 +4,7 @@ package view;
 import bean.LfsVenda;
 import dao.DAO_Venda;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -60,6 +61,11 @@ public class JDlgVendaPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         JBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/confirmar.jpg"))); // NOI18N
@@ -95,11 +101,22 @@ public class JDlgVendaPesquisar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
-         LfsVenda vendaBean =  controlerVenda.getBean( jTable1.getSelectedRow() );
-     jDlgVenda.beanView(vendaBean);
-         setVisible(false); 
-       
+             if (jTable1.getSelectedRow() == -1) {
+            Util.mensagem("Nenhum registro foi selecionada. Favor selecionar um registro.");
+        } else {
+            LfsVenda lfsvenda = controlerVenda.getBean(jTable1.getSelectedRow());
+            jDlgVenda.beanView(lfsvenda);
+            this.setVisible(false);
+        }
+      
     }//GEN-LAST:event_JBtnOkActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2) {
+            JBtnOkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -53,6 +53,7 @@ public class ControlerVenda extends AbstractTableModel {
 
     }
 
+   @Override
     public String getColumnName(int column) {
         if (column == 0) {
             return "codigo";
