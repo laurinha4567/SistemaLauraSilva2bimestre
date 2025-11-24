@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author u1845853
  */
-public abstract class DAO_Vendajogos extends DAO_Abstract{
+public class DAO_Vendajogos extends DAO_Abstract{
 
     @Override
     public void insert(Object object) {
@@ -65,7 +65,7 @@ public abstract class DAO_Vendajogos extends DAO_Abstract{
     
     
     @Override
-        public Object listAll() {
+        public List listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsVendasJogos.class);
         List lista = criteria.list();

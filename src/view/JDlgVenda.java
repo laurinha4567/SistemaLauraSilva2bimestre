@@ -66,8 +66,8 @@ public class JDlgVenda extends javax.swing.JDialog {
             jCboLfs_status_Venda.setSelectedIndex(1);
         }
         //está dando um erro por conta do listAll
-         DAO_Vendajogos dao_vendas = new DAO_Vendajogos() {};
-        List lista = (List) DAO_vendajogos.listVendas(lfsVenda);
+         DAO_Vendajogos dao_vendas = new DAO_Vendajogos();
+        List lista = (List) dao_vendas.listVendas(lfsVenda);
         controlerVendasJogos.setList(lista);
     }
        
@@ -375,7 +375,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-        DAO_Venda vendaDAO = new DAO_Vendajogos();
+        DAO_Venda vendaDAO = new DAO_Venda();
         DAO_Vendajogos dao_vendajogos = new DAO_Vendajogos();
         LfsVenda lfsvenda = viewBean();
         if (incluir == true) {
@@ -424,7 +424,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     private void jBtnIncluirJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirJogosActionPerformed
         // TODO add your handling code here:
         JDlgVendasJogos jDlgVendasJogos = new JDlgVendasJogos(null, true);
-         JDlgVendasJogos.setTelaAnterior(this);
+         jDlgVendasJogos.setTelaAnterior(this);
     jDlgVendasJogos.setVisible(true);
         
     }//GEN-LAST:event_jBtnIncluirJogosActionPerformed

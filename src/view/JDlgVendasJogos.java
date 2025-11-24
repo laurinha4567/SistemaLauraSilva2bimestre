@@ -5,6 +5,7 @@
  */
 package view;
 
+import dao.DAO_Jogos;
 import bean.LfsJogos;
 import bean.LfsVendasJogos;
 import java.util.List;
@@ -193,9 +194,9 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
     private void jCboNomeJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboNomeJogoActionPerformed
         // TODO add your handling code here:
       LfsJogos lfsjogos = (LfsJogos) jCboNomeJogo.getSelectedItem();
-        jTextUnitario.setText(Util.doubleToStr(LfsJogos.getLfsValorUnitario()));
+        jTextUnitario.setText(Util.doubleToStr(lfsjogos.getLfsPreco()));
         int quant = Util.strToInt(jTextQuant.getText());
-        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsValorUnitario()));
+        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsPreco()));
 
     }//GEN-LAST:event_jCboNomeJogoActionPerformed
 
@@ -212,7 +213,7 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
          if(jTextQuant.getText().isEmpty() == false){
       LfsJogos lfsjogos = (LfsJogos) jCboNomeJogo.getSelectedItem();
         int quant = Util.strToInt(jTextQuant.getText());
-        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsValorUnitario()));
+        jTxtTotal.setText(Util.doubleToStr( quant * lfsjogos.getLfsPreco()));
        } else {
            Util.limpar(jTxtTotal);
        }
