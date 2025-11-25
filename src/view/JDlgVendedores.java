@@ -281,16 +281,20 @@ public class JDlgVendedores extends javax.swing.JDialog { // ele √© do contra n√
                 jBtnConfirmar, jBtnCancelar);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         Util.limpar(jTxtIdlfs_vendedor, jTxtLfs_descricao, jTxtLfs_nome,
+                jFmtLfs_cpf, jFmtLfs_data_nascimento, jFmtLfs_telefone, jTxtLfs_salario);
         jTxtIdlfs_vendedor.grabFocus();
+         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-        incluir = false;
+      
         Util.habilitar(true, jTxtIdlfs_vendedor, jTxtLfs_descricao, jTxtLfs_nome,
                 jFmtLfs_cpf, jFmtLfs_data_nascimento, jFmtLfs_telefone, jTxtLfs_salario,
                 jBtnConfirmar, jBtnCancelar);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+          incluir = false;
         jTxtLfs_nome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -301,6 +305,7 @@ public class JDlgVendedores extends javax.swing.JDialog { // ele √© do contra n√
             vendedorDAO.delete(viewBean());
             Util.habilitar(true, jBtnPesquisar, jBtnIncluir);
         Util.habilitar(false, jBtnAlterar, jBtnExcluir);
+        
             Util.limpar(jTxtIdlfs_vendedor, jTxtLfs_descricao, jTxtLfs_nome,
                 jFmtLfs_cpf, jFmtLfs_data_nascimento,
                 jFmtLfs_telefone, jTxtLfs_salario);
@@ -346,6 +351,7 @@ public class JDlgVendedores extends javax.swing.JDialog { // ele √© do contra n√
         JDlgVendedorPesquisar jDlgVendedorPesquisar = new JDlgVendedorPesquisar(null, true);
         jDlgVendedorPesquisar.setTelaPai(this);
         jDlgVendedorPesquisar.setVisible(true);
+        
         Util.habilitar(false, jBtnPesquisar, jBtnIncluir);
         Util.habilitar(true, jBtnAlterar, jBtnExcluir);
 

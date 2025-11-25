@@ -39,11 +39,9 @@ public class LfsVenda  implements java.io.Serializable {
     }
 
 	
-    public LfsVenda(int lfsIdVenda, double lfsTotal, String lfsStatusVenda, String lfsObservacoes) {
+    public LfsVenda(int lfsIdVenda) {
         this.lfsIdVenda = lfsIdVenda;
-        this.lfsTotal = lfsTotal;
-        this.lfsStatusVenda = lfsStatusVenda;
-        this.lfsObservacoes = lfsObservacoes;
+        
     }
     public LfsVenda(int lfsIdVenda, LfsCliente lfsCliente, LfsVendedor lfsVendedor, Date lfsDataVenda, double lfsTotal, String lfsStatusVenda, String lfsObservacoes) {
        this.lfsIdVenda = lfsIdVenda;

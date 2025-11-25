@@ -45,20 +45,9 @@ public class LfsJogos  implements java.io.Serializable {
     }
 
 	
-    public LfsJogos(int lfsIdJogo, String lfsNomeJogo, String lfsClassificacaoIndicativa, String lfsGenero, double lfsPreco, String lfsDescricao, String lfsEstoque, String lfsIdioma, String lfsDesenvolvedora, String lfsAvaliacaoMedia, String lfsModoDeJogo, String lfsPlataforma, String lfsStatusDisponibilidade) {
+    public LfsJogos(int lfsIdJogo) {
         this.lfsIdJogo = lfsIdJogo;
-        this.lfsNomeJogo = lfsNomeJogo;
-        this.lfsClassificacaoIndicativa = lfsClassificacaoIndicativa;
-        this.lfsGenero = lfsGenero;
-        this.lfsPreco = lfsPreco;
-        this.lfsDescricao = lfsDescricao;
-        this.lfsEstoque = lfsEstoque;
-        this.lfsIdioma = lfsIdioma;
-        this.lfsDesenvolvedora = lfsDesenvolvedora;
-        this.lfsAvaliacaoMedia = lfsAvaliacaoMedia;
-        this.lfsModoDeJogo = lfsModoDeJogo;
-        this.lfsPlataforma = lfsPlataforma;
-        this.lfsStatusDisponibilidade = lfsStatusDisponibilidade;
+       
     }
     public LfsJogos(int lfsIdJogo, String lfsNomeJogo, String lfsClassificacaoIndicativa, String lfsGenero, double lfsPreco, String lfsDescricao, Date lfsDataLancamento, String lfsEstoque, String lfsIdioma, Date lfsDataAdicionado, String lfsDesenvolvedora, String lfsAvaliacaoMedia, String lfsModoDeJogo, String lfsPlataforma, String lfsStatusDisponibilidade, Set lfsVendasJogoses) {
        this.lfsIdJogo = lfsIdJogo;
@@ -231,7 +220,21 @@ public class LfsJogos  implements java.io.Serializable {
         this.lfsStatusDisponibilidade = lfsStatusDisponibilidade;
     }
 
+@Override
+    public String toString() {
+        return this.lfsIdJogo + " - " + this.lfsNomeJogo;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof LfsJogos) {
+            LfsJogos lfsJogos = (LfsJogos) object;
+            if (lfsJogos.getLfsIdJogo() == this.getLfsIdJogo()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

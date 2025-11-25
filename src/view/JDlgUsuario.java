@@ -270,6 +270,9 @@ public class JDlgUsuario extends javax.swing.JDialog {
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         jTxtIdusuario.grabFocus();
+         Util.limpar(jTxtIdusuario, jTxtNome, jTxtApelido, jFmtCpf, jFmtDataNascimento,
+                jPwdSenha, jCboNivel, jChbAtivo);
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -289,11 +292,7 @@ public class JDlgUsuario extends javax.swing.JDialog {
             DAO_Usuarios usuariosDAO = new DAO_Usuarios();
             usuariosDAO.delete(viewBean());
         }
-        Util.habilitar(false, jTxtIdusuario, jTxtNome, jTxtApelido,
-                jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel,
-                jChbAtivo, jBtnConfirmar, jBtnCancelar, jBtnAlterar, jBtnExcluir);
-
-        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+   
         Util.limpar(jTxtIdusuario, jTxtNome, jCboNivel, jTxtApelido, jFmtCpf, jFmtDataNascimento, jPwdSenha, jCboNivel, jChbAtivo);
 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
@@ -333,8 +332,6 @@ public class JDlgUsuario extends javax.swing.JDialog {
         JDlgUsuariosPesquisar jDlgUsuariosPesquisar = new JDlgUsuariosPesquisar(null, true);
         jDlgUsuariosPesquisar.setTelaAnterior(this);
         jDlgUsuariosPesquisar.setVisible(true);
-        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
-        Util.habilitar(false, jBtnPesquisar, jBtnIncluir);
 
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed

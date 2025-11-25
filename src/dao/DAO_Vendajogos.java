@@ -48,7 +48,7 @@ public class DAO_Vendajogos extends DAO_Abstract{
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsVendasJogos.class);
-        criteria.add(Restrictions.eq("idVendaJogos", codigo));
+        criteria.add(Restrictions.eq("lfsIdVendaJogos", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();        
         return lista;
@@ -57,7 +57,7 @@ public class DAO_Vendajogos extends DAO_Abstract{
       public Object listVendas(LfsVenda venda) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsVendasJogos.class);
-        criteria.add(Restrictions.eq("vendas", venda));
+        criteria.add(Restrictions.eq("lfsVenda", venda));
         List lista = criteria.list();
         session.getTransaction().commit();        
         return lista;

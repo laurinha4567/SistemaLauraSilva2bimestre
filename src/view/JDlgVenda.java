@@ -27,6 +27,7 @@ public class JDlgVenda extends javax.swing.JDialog {
      ControlerVendasJogos controlerVendasJogos;
     boolean incluir;
     
+    
 
     /**
      * Creates new form JDlgUsuario
@@ -37,11 +38,16 @@ public class JDlgVenda extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Movimento Venda");
+         Util.habilitar(false, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_fk_vendedor, jCboLfs_fk_cliente,
+                jTxtLfs_observacoes, jCboLfs_status_Venda, jTxtLfs_total, 
+                
+                jBtnConfirmar, jBtnCancelar);
+
         DAO_Cliente clienteDAO = new DAO_Cliente();
         
         List lista = (List) clienteDAO.listAll();
         for (int i = 0; i < lista.size(); i++) {
-            jCboLfs_fk_vendedor.addItem((LfsVendedor) lista.get(i));
+            jCboLfs_fk_cliente.addItem((LfsCliente) lista.get(i));
         }        
           DAO_Vendedor DAO_vendedor = new DAO_Vendedor();
         List listaVend = (List) DAO_vendedor.listAll();
@@ -65,8 +71,8 @@ public class JDlgVenda extends javax.swing.JDialog {
         } else {
             jCboLfs_status_Venda.setSelectedIndex(1);
         }
-        //está dando um erro por conta do listAll
-         DAO_Vendajogos dao_vendas = new DAO_Vendajogos();
+        
+        DAO_Vendajogos dao_vendas = new DAO_Vendajogos();
         List lista = (List) dao_vendas.listVendas(lfsVenda);
         controlerVendasJogos.setList(lista);
     }
@@ -342,17 +348,19 @@ public class JDlgVenda extends javax.swing.JDialog {
         Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
         Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
         controlerVendasJogos.setList(new ArrayList()); 
+         incluir = true;
         jTxtLfs_idVenda.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-        incluir = false;
+     
         Util.habilitar(true, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnAlterar, jBtnExcluir);
         jFmtLfs_dataVenda.grabFocus();
-         Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
+         //Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
         jTxtLfs_idVenda.grabFocus();
-         controlerVendasJogos.setList(new ArrayList()); 
+         controlerVendasJogos.setList(new ArrayList());
+            incluir = false;
 
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -383,7 +391,7 @@ public class JDlgVenda extends javax.swing.JDialog {
             for (int ind = 0; ind < jTblVendaJogos.getRowCount(); ind++) {
                 LfsVendasJogos lfsVendasjogos = controlerVendasJogos.getBean(ind);
                 lfsVendasjogos.setLfsVenda(lfsvenda);
-               dao_vendajogos.insert(lfsVendasjogos);
+                dao_vendajogos.insert(lfsVendasjogos);
             }
         } else {
             vendaDAO.update(lfsvenda);
@@ -397,9 +405,9 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
 
-      //  Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-      //  Util.habilitar(false, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
-       // Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
+       Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+       Util.habilitar(false, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+        Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

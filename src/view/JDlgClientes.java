@@ -526,6 +526,10 @@ public class JDlgClientes extends javax.swing.JDialog {  // ele não está funci
                 jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero, jFmtLfs_cpf, jFmtLfs_dataNascimento,
+                jPwdLfs_senha, jFmtLfs_RG, jTxtLfs_Cep,jTxtLfs_email,jFmtLfs_telefone,jCboLfs_forma_pagamento,jFmtLfs_dataUltimoLogin,jTxtLfs_preferencias,
+                jTxtLfs_observacoes,jFmtLfs_dataCadastro,jFmtLfs_cnpj);
+        incluir = true;
         jTxtIdlfs_Cliente.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -538,6 +542,7 @@ public class JDlgClientes extends javax.swing.JDialog {  // ele não está funci
                 jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        incluir = false;
         jTxtLfs_Nome_completo.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 

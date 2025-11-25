@@ -173,7 +173,7 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
 
     private void jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOKActionPerformed
         // TODO add your handling code here:
-      LfsVendasJogos lfsvendasjogos = new LfsVendasJogos();
+        LfsVendasJogos lfsvendasjogos = new LfsVendasJogos();
         lfsvendasjogos.setLfsJogos((LfsJogos) jCboNomeJogo.getSelectedItem());
         lfsvendasjogos.setLfsQuantidade(Util.strToInt(jTextQuant.getText()) );
         lfsvendasjogos.setLfsValorUnitario(Util.strToDouble(jTextUnitario.getText()) );                

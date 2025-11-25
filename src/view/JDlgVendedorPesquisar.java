@@ -4,9 +4,11 @@
  */
 package view;
 
+import bean.LfsJogos;
 import bean.LfsVendedor;
 import dao.DAO_Vendedor;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -98,9 +100,13 @@ public class JDlgVendedorPesquisar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOkActionPerformed
-        LfsVendedor vendedorBean =  controlerVendedor.getBean( jTable1.getSelectedRow() );
-     jDlgVendedor.beanView(vendedorBean);
-         setVisible(false); 
+        if (jTable1.getSelectedRow() == -1) {
+            Util.mensagem("Nenhum registro foi selecionada. Favor selecionar um registro.");
+        } else {
+            LfsVendedor lfsvendedor= controlerVendedor.getBean(jTable1.getSelectedRow());
+            jDlgVendedor.beanView(lfsvendedor);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_JBtnOkActionPerformed
 
     /**

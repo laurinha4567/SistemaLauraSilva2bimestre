@@ -362,24 +362,30 @@ public class JDlgJogos extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtIdlfs_JogosActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-        incluir = true;
-        Util.habilitar(true, jTxtIdlfs_Jogos, jTxtLfs_nome_jogo, jCboLfs_classificacao_indicativa,
+       
+        Util.habilitar(true, jTxtIdlfs_Jogos, jTxtIdlfs_Jogos, jCboLfs_classificacao_indicativa,
                 jCboLfs_genero, jTxtLfs_preco, jTxtLfs_descricao, jFmtLfs_data_lancamento,
                 jTxtLfs_estoque, jCboLfs_idioma, jFmtLfs_data_adicionado, jTxtLfs_desenvolvedora, jTxtLfs_avaliacao_media,
                 jTxtLfs_modo_de_jogo, jCboLfs_plataforma, jChbLfs_status_disponibilidade, jBtnConfirmar, jBtnCancelar);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         Util.limpar(jTxtIdlfs_Jogos, jTxtIdlfs_Jogos, jCboLfs_classificacao_indicativa,
+                jCboLfs_genero, jTxtLfs_preco, jTxtLfs_descricao, jFmtLfs_data_lancamento,
+                jTxtLfs_estoque, jCboLfs_idioma, jFmtLfs_data_adicionado, jTxtLfs_desenvolvedora, jTxtLfs_avaliacao_media,
+                jTxtLfs_modo_de_jogo, jCboLfs_plataforma, jChbLfs_status_disponibilidade);
+        incluir = true;
         jTxtIdlfs_Jogos.grabFocus();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-        incluir = false;
+
         Util.habilitar(true, jTxtLfs_nome_jogo, jCboLfs_classificacao_indicativa,
                 jCboLfs_genero, jTxtLfs_preco, jTxtLfs_descricao, jFmtLfs_data_lancamento,
                 jTxtLfs_estoque, jCboLfs_idioma, jFmtLfs_data_adicionado, jTxtLfs_desenvolvedora, jTxtLfs_avaliacao_media,
                 jTxtLfs_modo_de_jogo, jCboLfs_plataforma, jChbLfs_status_disponibilidade, jBtnConfirmar, jBtnCancelar);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        incluir = false;
         jTxtLfs_nome_jogo.grabFocus();
 
 
@@ -403,7 +409,8 @@ public class JDlgJogos extends javax.swing.JDialog {
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         
         DAO_Jogos jogosDAO = new DAO_Jogos();
-        if(incluir) {
+         LfsJogos lfsjogos = viewBean();
+        if(incluir == true) {
             jogosDAO.insert(viewBean());
         } else {
             jogosDAO.update(viewBean());
