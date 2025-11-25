@@ -40,8 +40,8 @@ public class JDlgVendedores extends javax.swing.JDialog { // ele √© do contra n√
         jFmtLfs_data_nascimento.setText(Util.dateToStr(vendedorbean.getLfsDataNascimento()));
         jFmtLfs_telefone.setText(vendedorbean.getLfsTelefone());
         jTxtLfs_salario.setText(Util.doubleToStr(vendedorbean.getLfsSalario()));
-    
-
+        Util.habilitar(false, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
  
     }
          public LfsVendedor viewBean() {

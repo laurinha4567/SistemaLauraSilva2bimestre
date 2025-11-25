@@ -29,6 +29,7 @@ public class LfsVendasJogos  implements java.io.Serializable {
      private int lfsQuantidade;
      private double lfsValorUnitario;
      private String lfsObservacoes;
+     
 
     public LfsVendasJogos() {
     }

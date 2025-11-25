@@ -24,7 +24,7 @@ import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 public class JDlgVenda extends javax.swing.JDialog {
-     ControlerVendasJogos controlerVendasJogos;
+    public ControlerVendasJogos controlerVendasJogos;
     boolean incluir;
     
     

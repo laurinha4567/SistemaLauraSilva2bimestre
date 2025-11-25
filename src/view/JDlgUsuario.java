@@ -32,7 +32,8 @@ public class JDlgUsuario extends javax.swing.JDialog {
         jPwdSenha.setText(usuariosbean.getLfsSenha());
         jCboNivel.setSelectedIndex(usuariosbean.getLfsNivel());
         jChbAtivo.setSelected("S".equals(usuariosbean.getLfsAtivo()));
-
+        Util.habilitar(false, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
     }
 
     public LfsUsuario viewBean() {

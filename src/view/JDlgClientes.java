@@ -86,7 +86,9 @@ public class JDlgClientes extends javax.swing.JDialog {  // ele não está funci
         jTxtLfs_observacoes.setText(lfsCliente.getLfsObservacoes());
         jFmtLfs_dataCadastro.setText(Util.dateToStr(lfsCliente.getLfsDataCadastro()));
         jFmtLfs_cnpj.setText(lfsCliente.getLfsCnpj());
-
+        
+        Util.habilitar(false, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
     }
 
     public LfsCliente viewBean() {
@@ -497,7 +499,11 @@ public class JDlgClientes extends javax.swing.JDialog {  // ele não está funci
                 jFmtLfs_dataCadastro, jBtnConfirmar, jBtnCancelar, jFmtLfs_cnpj);
 
         Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-        Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero);
+        Util.limpar(jTxtIdlfs_Cliente, jTxtLfs_Nome_completo, jCboLfs_genero,
+                    jFmtLfs_cpf, jFmtLfs_dataNascimento, jPwdLfs_senha, jFmtLfs_RG,
+                    jTxtLfs_Cep, jTxtLfs_email, jFmtLfs_telefone, jCboLfs_forma_pagamento,
+                    jFmtLfs_dataUltimoLogin, jTxtLfs_preferencias, jTxtLfs_observacoes,
+                    jFmtLfs_dataCadastro, jFmtLfs_cnpj);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

@@ -43,6 +43,9 @@ public class JDlgJogos extends javax.swing.JDialog {
         jTxtLfs_modo_de_jogo.setText(jogos.getLfsModoDeJogo());
         jCboLfs_plataforma.setSelectedItem(jogos.getLfsPlataforma());
         jChbLfs_status_disponibilidade.setSelected(jogos.getLfsStatusDisponibilidade() == "S");
+        
+        Util.habilitar(false, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
     }
 
     public LfsJogos viewBean() {
@@ -363,13 +366,13 @@ public class JDlgJogos extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
        
-        Util.habilitar(true, jTxtIdlfs_Jogos, jTxtIdlfs_Jogos, jCboLfs_classificacao_indicativa,
+        Util.habilitar(true, jTxtIdlfs_Jogos, jTxtLfs_nome_jogo, jCboLfs_classificacao_indicativa,
                 jCboLfs_genero, jTxtLfs_preco, jTxtLfs_descricao, jFmtLfs_data_lancamento,
                 jTxtLfs_estoque, jCboLfs_idioma, jFmtLfs_data_adicionado, jTxtLfs_desenvolvedora, jTxtLfs_avaliacao_media,
                 jTxtLfs_modo_de_jogo, jCboLfs_plataforma, jChbLfs_status_disponibilidade, jBtnConfirmar, jBtnCancelar);
 
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-         Util.limpar(jTxtIdlfs_Jogos, jTxtIdlfs_Jogos, jCboLfs_classificacao_indicativa,
+         Util.limpar(jTxtIdlfs_Jogos, jTxtLfs_nome_jogo, jCboLfs_classificacao_indicativa,
                 jCboLfs_genero, jTxtLfs_preco, jTxtLfs_descricao, jFmtLfs_data_lancamento,
                 jTxtLfs_estoque, jCboLfs_idioma, jFmtLfs_data_adicionado, jTxtLfs_desenvolvedora, jTxtLfs_avaliacao_media,
                 jTxtLfs_modo_de_jogo, jCboLfs_plataforma, jChbLfs_status_disponibilidade);
