@@ -71,7 +71,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jBtnIncluirJogos" min="-2" pref="47" max="-2" attributes="0"/>
                           <Component id="jBtnAlterarJogos" min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="47" max="-2" attributes="0"/>
+                          <Component id="jBtnExcluirJogos" min="-2" pref="47" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -125,7 +125,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jBtnAlterarJogos" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="jBtnExcluirJogos" min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -337,14 +337,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAlterarJogosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="jBtnExcluirJogos">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/excluir.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnExcluirJogosActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

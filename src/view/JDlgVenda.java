@@ -41,7 +41,7 @@ public class JDlgVenda extends javax.swing.JDialog {
          Util.habilitar(false, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_fk_vendedor, jCboLfs_fk_cliente,
                 jTxtLfs_observacoes, jCboLfs_status_Venda, jTxtLfs_total, 
                 
-                jBtnConfirmar, jBtnCancelar);
+                jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jBtnConfirmar, jBtnCancelar);
 
         DAO_Cliente clienteDAO = new DAO_Cliente();
         
@@ -75,6 +75,9 @@ public class JDlgVenda extends javax.swing.JDialog {
         DAO_Vendajogos dao_vendas = new DAO_Vendajogos();
         List lista = (List) dao_vendas.listVendas(lfsVenda);
         controlerVendasJogos.setList(lista);
+        
+        Util.habilitar(false, jBtnIncluir);
+        Util.habilitar(true, jBtnAlterar, jBtnExcluir);
     }
        
     public LfsVenda viewBean() {
@@ -118,7 +121,7 @@ public class JDlgVenda extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jBtnIncluirJogos = new javax.swing.JButton();
         jBtnAlterarJogos = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtnExcluirJogos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -231,10 +234,10 @@ public class JDlgVenda extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBtnExcluirJogos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/excluir.png"))); // NOI18N
+        jBtnExcluirJogos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBtnExcluirJogosActionPerformed(evt);
             }
         });
 
@@ -281,7 +284,7 @@ public class JDlgVenda extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtnIncluirJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnAlterarJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jBtnExcluirJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
@@ -327,7 +330,7 @@ public class JDlgVenda extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnAlterarJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtnExcluirJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnConfirmar)
@@ -344,7 +347,7 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         incluir = true;
-        Util.habilitar(true, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos,  jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnPesquisar);
         Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
         controlerVendasJogos.setList(new ArrayList()); 
@@ -354,7 +357,7 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
      
-        Util.habilitar(true, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnAlterar, jBtnExcluir);
         jFmtLfs_dataVenda.grabFocus();
          //Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
@@ -406,7 +409,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
 
        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-       Util.habilitar(false, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+       Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
         Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
@@ -443,7 +446,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     jDlgVendasJogos.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarJogosActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBtnExcluirJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirJogosActionPerformed
         // TODO add your handling code here:
        if (jTblVendaJogos.getSelectedRow() == -1) {
             Util.mensagem("Oh seu loco, precisa selecionar uma linha.");
@@ -452,7 +455,7 @@ public class JDlgVenda extends javax.swing.JDialog {
                 controlerVendasJogos.removeBean(jTblVendaJogos.getSelectedRow());
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jBtnExcluirJogosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -500,10 +503,10 @@ public class JDlgVenda extends javax.swing.JDialog {
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnConfirmar;
     private javax.swing.JButton jBtnExcluir;
+    private javax.swing.JButton jBtnExcluirJogos;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnIncluirJogos;
     private javax.swing.JButton jBtnPesquisar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<LfsCliente> jCboLfs_fk_cliente;
     private javax.swing.JComboBox<LfsVendedor> jCboLfs_fk_vendedor;
     private javax.swing.JComboBox<String> jCboLfs_status_Venda;
