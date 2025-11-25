@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class LfsVendasJogos  implements java.io.Serializable {
 
 
-     private LfsVendasJogosId id;
+     private int id;
      private LfsJogos lfsJogos;
      private LfsVenda lfsVenda;
      private int lfsQuantidade;
@@ -35,14 +35,14 @@ public class LfsVendasJogos  implements java.io.Serializable {
     }
 
 	
-    public LfsVendasJogos(LfsVendasJogosId id, LfsJogos lfsJogos, LfsVenda lfsVenda, int lfsQuantidade, double lfsValorUnitario) {
+    public LfsVendasJogos(int  id, LfsJogos lfsJogos, LfsVenda lfsVenda, int lfsQuantidade, double lfsValorUnitario) {
         this.id = id;
         this.lfsJogos = lfsJogos;
         this.lfsVenda = lfsVenda;
         this.lfsQuantidade = lfsQuantidade;
         this.lfsValorUnitario = lfsValorUnitario;
     }
-    public LfsVendasJogos(LfsVendasJogosId id, LfsJogos lfsJogos, LfsVenda lfsVenda, int lfsQuantidade, double lfsValorUnitario, String lfsObservacoes) {
+    public LfsVendasJogos(int id, LfsJogos lfsJogos, LfsVenda lfsVenda, int lfsQuantidade, double lfsValorUnitario, String lfsObservacoes) {
        this.id = id;
        this.lfsJogos = lfsJogos;
        this.lfsVenda = lfsVenda;
@@ -58,11 +58,11 @@ public class LfsVendasJogos  implements java.io.Serializable {
         @AttributeOverride(name="lfsIdVendaJogos", column=@Column(name="lfs_idVenda_jogos", nullable=false) ), 
         @AttributeOverride(name="lfsFkJogos", column=@Column(name="lfs_fk_jogos", nullable=false) ), 
         @AttributeOverride(name="lfsFksIdVenda", column=@Column(name="lfs_fks_idVenda", nullable=false) ) } )
-    public LfsVendasJogosId getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(LfsVendasJogosId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
