@@ -51,9 +51,35 @@ public class DAO_Usuarios extends DAO_Abstract {
         return lista;
     }
 
+  
+    public LfsUsuario login(String apelido, String senha) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LfsUsuario.class);
+        
+      
+        criteria.add(Restrictions.eq("mscApelido", apelido));
+        criteria.add(Restrictions.eq("mscSenha", senha));
+
+        List<LfsUsuario> lista = criteria.list();
+        session.getTransaction().commit();
+
+        if (!lista.isEmpty()) {
+            return lista.get(0); 
+        } else {
+            return null; 
+        }
+    }
+
     public static void main(String[] args) {
-        DAO_Usuarios dAO_LfsUsuario = new DAO_Usuarios();
-        dAO_LfsUsuario.listAll();
-        System.out.println("Deu certo");
+        DAO_Usuarios dao_usuario = new DAO_Usuarios();
+        
+      
+        LfsUsuario usuario = dao_usuario.login("apelidoDoUsuario", "senhaDoUsuario");
+
+        if (usuario != null) {
+            System.out.println("Login bem-sucedido! Usuário: " + usuario.getLfsNome());
+        } else {
+            System.out.println("Apelido ou senha inválidos.");
+        }
     }
 }
