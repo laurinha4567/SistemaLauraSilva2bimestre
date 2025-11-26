@@ -57,8 +57,8 @@ public class DAO_Usuarios extends DAO_Abstract {
         Criteria criteria = session.createCriteria(LfsUsuario.class);
         
       
-        criteria.add(Restrictions.eq("mscApelido", apelido));
-        criteria.add(Restrictions.eq("mscSenha", senha));
+        criteria.add(Restrictions.eq("lfsApelido", apelido));
+        criteria.add(Restrictions.eq("lfsSenha", senha));
 
         List<LfsUsuario> lista = criteria.list();
         session.getTransaction().commit();
