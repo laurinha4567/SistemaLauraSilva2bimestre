@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -59,6 +60,10 @@ public class JDlgVenda extends javax.swing.JDialog {
         jTblVendaJogos.setModel(controlerVendasJogos);
     }
 
+    public JTable getjTblVendaJogos() {
+        return jTblVendaJogos;
+    }
+    
     public void beanView(LfsVenda lfsVenda) {
         jCboLfs_fk_cliente.setSelectedItem(lfsVenda.getLfsCliente());
         jCboLfs_fk_vendedor.setSelectedItem(lfsVenda.getLfsVendedor());
@@ -398,6 +403,16 @@ public class JDlgVenda extends javax.swing.JDialog {
             }
         } else {
             vendaDAO.update(lfsvenda);
+             dao_vendajogos.deleteJogos(lfsvenda);
+            //incluo os pedidos produtos
+            for (int ind = 0; ind < jTblVendaJogos.getRowCount(); ind++) {
+                LfsVendasJogos lfsVendasjogos = controlerVendasJogos.getBean(ind);
+                lfsVendasjogos.setLfsVenda(lfsvenda);
+                dao_vendajogos.insert(lfsVendasjogos);
+            }
+
+        
+            
 
         }
         Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
@@ -408,9 +423,10 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
 
-       Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-       Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
-        Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
+       //Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+       //Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+       // Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
+       controlerVendasJogos.setList(new ArrayList());
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
@@ -435,7 +451,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     private void jBtnIncluirJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirJogosActionPerformed
         // TODO add your handling code here:
         JDlgVendasJogos jDlgVendasJogos = new JDlgVendasJogos(null, true);
-         jDlgVendasJogos.setTelaAnterior(this);
+         jDlgVendasJogos.setTelaAnterior(this, null);
     jDlgVendasJogos.setVisible(true);
         
     }//GEN-LAST:event_jBtnIncluirJogosActionPerformed
@@ -443,7 +459,9 @@ public class JDlgVenda extends javax.swing.JDialog {
     private void jBtnAlterarJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarJogosActionPerformed
         // TODO add your handling code here:
         JDlgVendasJogos jDlgVendasJogos = new JDlgVendasJogos(null, true);
-    jDlgVendasJogos.setVisible(true);
+        LfsVendasJogos lfsvendasjogos = controlerVendasJogos.getBean(jTblVendaJogos.getSelectedRow());
+        jDlgVendasJogos.setTelaAnterior(this, lfsvendasjogos);
+         jDlgVendasJogos.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarJogosActionPerformed
 
     private void jBtnExcluirJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirJogosActionPerformed

@@ -43,7 +43,18 @@ public class DAO_Vendajogos extends DAO_Abstract{
         session.delete(object);
         session.getTransaction().commit();        
     }
-
+      
+     public void deleteJogos(LfsVenda lfsvenda) {
+        List lista = (List) listVendas(lfsvenda);
+        session.beginTransaction();
+        for (int i = 0; i < lista.size(); i++) {
+            LfsVendasJogos lfsVendasjogos = (LfsVendasJogos) lista.get(i);
+            session.flush();
+            session.clear();
+            session.delete(lfsVendasjogos);
+        }
+        session.getTransaction().commit();
+    }
     @Override
     public Object list(int codigo) {
         session.beginTransaction();

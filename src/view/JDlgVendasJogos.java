@@ -17,7 +17,7 @@ import tools.Util;
  */
 public class JDlgVendasJogos extends javax.swing.JDialog {
     JDlgVenda jDlgvenda;
-
+    boolean incluir = false;
     /**
      * Creates new form JDlgPedidosProdutos
      */
@@ -35,8 +35,15 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
        
     }
     
-    public void setTelaAnterior(JDlgVenda jDlgvenda) {
+    public void setTelaAnterior(JDlgVenda jDlgvenda, LfsVendasJogos lfsvendasjogos) {
         this.jDlgvenda = jDlgvenda;
+        if (lfsvendasjogos != null) {
+            incluir = false;
+            jCboNomeJogo.setSelectedItem(lfsvendasjogos.getLfsJogos());
+            jTextQuant.setText(Util.intToStr(lfsvendasjogos.getLfsQuantidade()));
+        } else {
+            incluir = true;
+        }
     }
     
 
@@ -178,6 +185,12 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
         lfsvendasjogos.setLfsQuantidade(Util.strToInt(jTextQuant.getText()) );
         lfsvendasjogos.setLfsValorUnitario(Util.strToDouble(jTextUnitario.getText()) );                
         jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
+        if (incluir == true) {
+            jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
+        } else {
+            jDlgvenda.controlerVendasJogos.removeBean(jDlgvenda.getjTblVendaJogos().getSelectedRow());
+            jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
+        }
         setVisible(false);
     }//GEN-LAST:event_jBtnOKActionPerformed
 
