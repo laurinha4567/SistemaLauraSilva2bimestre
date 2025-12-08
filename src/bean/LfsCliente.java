@@ -43,7 +43,9 @@ public class LfsCliente  implements java.io.Serializable {
 
     public LfsCliente() {
     }
-
+        public LfsCliente(int idclientes) {
+        this.idlfsCliente = idlfsCliente;
+    }
 	
     public LfsCliente(int idlfsCliente, String lfsNomeCompleto, int lfsGenero, String lfsCpf, String lfsSenha, String lfsRg, String lfsCep, String lfsEmail, String lfsTelefone, int lfsFormaPagamento, String lfsPreferencias, String lfsObservacoes) {
         this.idlfsCliente = idlfsCliente;
@@ -243,9 +245,20 @@ public class LfsCliente  implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return this.getLfsNomeCompleto();
+        return this.idlfsCliente + " - " + this.lfsNomeCompleto;
     }
     
+     @Override
+     public boolean equals(Object object) {
+        if (object instanceof LfsCliente) {
+            LfsCliente lfscliente = (LfsCliente) object;
+            if (lfscliente.getIdlfsCliente() == this.getIdlfsCliente()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

@@ -134,7 +134,15 @@ public class LfsVendedor  implements java.io.Serializable {
         return this.getLfsNome();
     }
 
-
+ public boolean equals(Object object) {
+        if (object instanceof LfsVendedor) {
+            LfsVendedor lfsvendedor = (LfsVendedor) object;
+            if (lfsvendedor.getIdlfsVendedor() == this.getIdlfsVendedor()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

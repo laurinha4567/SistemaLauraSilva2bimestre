@@ -45,7 +45,9 @@ public class DAO_Vendajogos extends DAO_Abstract{
     }
       
      public void deleteJogos(LfsVenda lfsvenda) {
+           //listar todos os produtos do pedido
         List lista = (List) listVendas(lfsvenda);
+            //deleta  a lista acima 
         session.beginTransaction();
         for (int i = 0; i < lista.size(); i++) {
             LfsVendasJogos lfsVendasjogos = (LfsVendasJogos) lista.get(i);
