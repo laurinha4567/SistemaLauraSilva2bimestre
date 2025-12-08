@@ -367,7 +367,7 @@ public class JDlgVenda extends javax.swing.JDialog {
         jFmtLfs_dataVenda.grabFocus();
          //Util.limpar(jTxtLfs_idVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
         jTxtLfs_idVenda.grabFocus();
-         controlerVendasJogos.setList(new ArrayList());
+         controlerVendasJogos.setList(new ArrayList()); //oq e isso?
             incluir = false;
 
     }//GEN-LAST:event_jBtnAlterarActionPerformed
@@ -410,10 +410,7 @@ public class JDlgVenda extends javax.swing.JDialog {
                 lfsVendasjogos.setLfsVenda(lfsvenda);
                 dao_vendajogos.insert(lfsVendasjogos);
             }
-
-        
             
-
         }
         Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
         Util.habilitar(false, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
@@ -423,9 +420,11 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
 
-       //Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-       //Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
-       // Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
+       Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+       Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluirJogos, jBtnAlterarJogos, jBtnExcluirJogos, 
+               jTxtLfs_idVenda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_observacoes, jTxtLfs_total,
+               jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+       Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jCboLfs_status_Venda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
        controlerVendasJogos.setList(new ArrayList());
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
