@@ -4,7 +4,7 @@
  */
 package view;
 
-import bean.LfsJogos;
+import bean.LfsVenda;
 import bean.LfsUsuario;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,23 +14,23 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Marcos
  */
-public class ControllerConsultasJogos extends AbstractTableModel {
+public class ControllerConsultasVenda extends AbstractTableModel {
 
-    private List LfsJogos;
+    private List lstLfsVenda;
 
     public void setList(List lstMscAparelhos) {
-        this.LfsJogos = lstMscAparelhos;
+        this.lstLfsVenda = lstMscAparelhos;
         this.fireTableDataChanged();
         
     }
     
-    public LfsJogos getBean(int rowIndex) {
-        return (LfsJogos) LfsJogos.get(rowIndex);
+    public LfsVenda getBean(int rowIndex) {
+        return (LfsVenda) lstLfsVenda.get(rowIndex);
     }
 
     @Override
     public int getRowCount() {
-        return LfsJogos.size();
+        return lstLfsVenda.size();
                 
     }
 
@@ -41,14 +41,15 @@ public class ControllerConsultasJogos extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LfsJogos lfsjogos = (LfsJogos) LfsJogos.get( rowIndex);
+        LfsVenda lfsvenda = (LfsVenda) lstLfsVenda.get( rowIndex);
         if ( columnIndex == 0 ){
-            return lfsjogos.getLfsIdJogo();
+            return lfsvenda.getLfsIdVenda();
         } else if (columnIndex ==1) {
-            return lfsjogos.getLfsNomeJogo();        
+            return lfsvenda.getLfsCliente();            
         } else if (columnIndex ==2) {
-            return lfsjogos.getLfsPreco();
+            return lfsvenda.getLfsTotal();
         } 
+        
         return "";
     }
 
@@ -57,9 +58,9 @@ public class ControllerConsultasJogos extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "Código";
         } else if ( columnIndex == 1) {
-            return "Marca";         
-        } else if ( columnIndex == 2) {
-            return "Valor Unitario";
+            return "Cliente";               
+        }  else if ( columnIndex == 2) {
+            return "Valor Total";
         } 
         return "";
     }

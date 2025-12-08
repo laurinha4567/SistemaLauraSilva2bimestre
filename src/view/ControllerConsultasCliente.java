@@ -4,7 +4,7 @@
  */
 package view;
 
-import bean.LfsJogos;
+import bean.LfsCliente;
 import bean.LfsUsuario;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,23 +14,23 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Marcos
  */
-public class ControllerConsultasJogos extends AbstractTableModel {
+public class ControllerConsultasCliente extends AbstractTableModel {
 
-    private List LfsJogos;
+    private List lstLfsCliente;
 
-    public void setList(List lstMscAparelhos) {
-        this.LfsJogos = lstMscAparelhos;
+    public void setList(List lstLfsCliente) {
+        this.lstLfsCliente = lstLfsCliente;
         this.fireTableDataChanged();
         
     }
     
-    public LfsJogos getBean(int rowIndex) {
-        return (LfsJogos) LfsJogos.get(rowIndex);
+    public LfsCliente getBean(int rowIndex) {
+        return (LfsCliente) lstLfsCliente.get(rowIndex);
     }
 
     @Override
     public int getRowCount() {
-        return LfsJogos.size();
+        return lstLfsCliente.size();
                 
     }
 
@@ -41,13 +41,13 @@ public class ControllerConsultasJogos extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LfsJogos lfsjogos = (LfsJogos) LfsJogos.get( rowIndex);
+        LfsCliente lfscliente = (LfsCliente) lstLfsCliente.get( rowIndex);
         if ( columnIndex == 0 ){
-            return lfsjogos.getLfsIdJogo();
+            return lfscliente.getIdlfsCliente();
         } else if (columnIndex ==1) {
-            return lfsjogos.getLfsNomeJogo();        
+            return lfscliente.getLfsNomeCompleto();        
         } else if (columnIndex ==2) {
-            return lfsjogos.getLfsPreco();
+            return lfscliente.getLfsCpf();
         } 
         return "";
     }
@@ -57,9 +57,9 @@ public class ControllerConsultasJogos extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "Código";
         } else if ( columnIndex == 1) {
-            return "Marca";         
+            return "Nome";         
         } else if ( columnIndex == 2) {
-            return "Valor Unitario";
+            return "CPF";
         } 
         return "";
     }

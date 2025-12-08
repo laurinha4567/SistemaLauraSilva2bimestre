@@ -4,7 +4,7 @@
  */
 package view;
 
-import bean.LfsJogos;
+import bean.LfsVendedor;
 import bean.LfsUsuario;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,23 +14,23 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Marcos
  */
-public class ControllerConsultasJogos extends AbstractTableModel {
+public class ControllerConsultasVendedor extends AbstractTableModel {
 
-    private List LfsJogos;
+    private List lstLfsVendedor;
 
-    public void setList(List lstMscAparelhos) {
-        this.LfsJogos = lstMscAparelhos;
+    public void setList(List lstServicos) {
+        this.lstLfsVendedor = lstServicos;
         this.fireTableDataChanged();
         
     }
     
-    public LfsJogos getBean(int rowIndex) {
-        return (LfsJogos) LfsJogos.get(rowIndex);
+    public LfsVendedor getBean(int rowIndex) {
+        return (LfsVendedor) lstLfsVendedor.get(rowIndex);
     }
 
     @Override
     public int getRowCount() {
-        return LfsJogos.size();
+        return lstLfsVendedor.size();
                 
     }
 
@@ -41,13 +41,13 @@ public class ControllerConsultasJogos extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LfsJogos lfsjogos = (LfsJogos) LfsJogos.get( rowIndex);
+        LfsVendedor lfsvendedor = (LfsVendedor) lstLfsVendedor.get( rowIndex);
         if ( columnIndex == 0 ){
-            return lfsjogos.getLfsIdJogo();
+            return lfsvendedor.getIdlfsVendedor();
         } else if (columnIndex ==1) {
-            return lfsjogos.getLfsNomeJogo();        
+            return lfsvendedor.getLfsNome();        
         } else if (columnIndex ==2) {
-            return lfsjogos.getLfsPreco();
+            return lfsvendedor.getLfsCpf();
         } 
         return "";
     }
@@ -57,9 +57,9 @@ public class ControllerConsultasJogos extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "Código";
         } else if ( columnIndex == 1) {
-            return "Marca";         
+            return "Nome do Vendedor";         
         } else if ( columnIndex == 2) {
-            return "Valor Unitario";
+            return "Valor";
         } 
         return "";
     }
