@@ -56,11 +56,11 @@ public class ControllerConsultasVenda extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         if ( columnIndex == 0) {
-            return "Código";
+            return "id";
         } else if ( columnIndex == 1) {
             return "Cliente";               
         }  else if ( columnIndex == 2) {
-            return "Valor Total";
+            return "Total";
         } 
         return "";
     }

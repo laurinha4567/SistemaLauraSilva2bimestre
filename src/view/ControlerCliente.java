@@ -30,7 +30,7 @@ public class ControlerCliente extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -39,31 +39,22 @@ public class ControlerCliente extends AbstractTableModel {
 
         LfsCliente usuarios = (LfsCliente) lista.get(rowIndex);
 
-        if (columnIndex == 0) {
-            return usuarios.getIdlfsCliente();
-        }
-        if (columnIndex == 1) {
-            return usuarios.getLfsNomeCompleto();
-        }
-        if (columnIndex == 2) {
-            return usuarios.getLfsCpf();
-        }
+        if (columnIndex == 0) return usuarios.getIdlfsCliente();
+        if (columnIndex == 1) return usuarios.getLfsNomeCompleto();
+        if (columnIndex == 2) return usuarios.getLfsCpf();
+        if (columnIndex == 2) return usuarios.getLfsCpf();
+        if (columnIndex == 2) return usuarios.getLfsTelefone();
+        
 
         return "";
 
     }
 
     public String getColumnName(int column) {
-        if (column == 0) {
-            return "codigo";
-        }
-        if (column == 1) {
-            return "Nome";
-        }
-        if (column == 2) {
-            return "cpf";
-        }
-
-        return "";
+      if(column == 0) return "codigo";
+      if(column == 1) return "Nome";
+      if(column == 2) return "Cpf";
+      if(column == 3) return "Telefone";
+      return "";
     }
 }

@@ -30,7 +30,7 @@ public class ControlerVenda extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -39,15 +39,11 @@ public class ControlerVenda extends AbstractTableModel {
 
         LfsVenda usuarios = (LfsVenda) lista.get(rowIndex);
 
-        if (columnIndex == 0) {
-            return usuarios.getLfsIdVenda();
-        }
-        if (columnIndex == 1) {
-            return usuarios.getLfsCliente();
-        }
-        if (columnIndex == 2) {
-            return usuarios.getLfsVendedor();
-        }
+        if (columnIndex == 0) return usuarios.getLfsIdVenda();
+        if (columnIndex == 1) return usuarios.getLfsCliente();
+        if (columnIndex == 2) return usuarios.getLfsVendedor();
+        if (columnIndex == 3) return usuarios.getLfsTotal();
+        
 
         return "";
 
@@ -55,15 +51,11 @@ public class ControlerVenda extends AbstractTableModel {
 
    @Override
     public String getColumnName(int column) {
-        if (column == 0) {
-            return "codigo";
-        }
-        if (column == 1) {
-            return "Clientes";
-        }
-        if (column == 2) {
-            return "Vendedor";
-        }
+        if (column == 0) return "codigo";
+        if (column == 1) return "Clientes"; 
+        if (column == 2) return "Vendedor";
+        if (column == 2) return "Total";
+        
 
         return "";
     }

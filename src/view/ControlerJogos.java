@@ -52,7 +52,7 @@ public class ControlerJogos extends AbstractTableModel {
         if (column == 0) return "codigo";
         if (column == 1) return "Nome";
         if (column == 2) return "Genêro";
-        if (column == 2) return "Idioma";
+        if (column == 3) return "Idioma";
        
 
         return "";

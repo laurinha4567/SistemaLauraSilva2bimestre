@@ -47,7 +47,7 @@ public class ControllerConsultasVendedor extends AbstractTableModel {
         } else if (columnIndex ==1) {
             return lfsvendedor.getLfsNome();        
         } else if (columnIndex ==2) {
-            return lfsvendedor.getLfsCpf();
+            return lfsvendedor.getLfsSalario();
         } 
         return "";
     }
@@ -59,7 +59,7 @@ public class ControllerConsultasVendedor extends AbstractTableModel {
         } else if ( columnIndex == 1) {
             return "Nome do Vendedor";         
         } else if ( columnIndex == 2) {
-            return "Valor";
+            return "Salario";
         } 
         return "";
     }

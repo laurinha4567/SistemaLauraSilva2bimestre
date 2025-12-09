@@ -55,11 +55,11 @@ public class ControllerConsultasJogos extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         if ( columnIndex == 0) {
-            return "Código";
+            return "id";
         } else if ( columnIndex == 1) {
-            return "Marca";         
+            return "Nome Jogo";         
         } else if ( columnIndex == 2) {
-            return "Valor Unitario";
+            return "Prço";
         } 
         return "";
     }

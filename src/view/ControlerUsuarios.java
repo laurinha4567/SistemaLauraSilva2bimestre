@@ -35,7 +35,7 @@ public class ControlerUsuarios extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -46,6 +46,7 @@ public class ControlerUsuarios extends AbstractTableModel {
            if(columnIndex == 0) return usuarios.getLfsIdusuario();
            if(columnIndex == 1) return usuarios.getLfsNome();
            if(columnIndex == 2) return usuarios.getLfsCpf();
+           if(columnIndex == 3) return usuarios.getLfsAtivo();
                
                   return "";
 
@@ -55,7 +56,7 @@ public class ControlerUsuarios extends AbstractTableModel {
       if(column == 0) return "codigo";
       if(column == 1) return "Nome";
       if(column == 2) return "cpf";
-      
+      if(column == 3) return "Ativo";
       return "";
     }
 }
