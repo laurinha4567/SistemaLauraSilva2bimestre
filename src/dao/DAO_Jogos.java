@@ -82,6 +82,6 @@ public class DAO_Jogos extends DAO_Abstract {
     public static void main(String[] args) {
         DAO_Jogos dAO_LfsJogos = new DAO_Jogos();
         dAO_LfsJogos.listAll();
-        System.out.println("Deu certo");
+       
     }
 }

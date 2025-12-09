@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -31,38 +31,29 @@ public class ControlerJogos extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
         LfsJogos jogos = (LfsJogos) lista.get(rowIndex);
-
-        if (columnIndex == 0) {
-            return jogos.getLfsIdJogo();
-        }
-        if (columnIndex == 1) {
-            return jogos.getLfsNomeJogo();
-        }
-        if (columnIndex == 2) {
-            return jogos.getLfsGenero();
-        }
+        if (columnIndex == 0)  return jogos.getLfsIdJogo();
+        if (columnIndex == 1)  return jogos.getLfsNomeJogo();
+        if (columnIndex == 2)  return jogos.getLfsGenero();
+        if (columnIndex == 3)  return jogos.getLfsIdioma();
+        
 
         return "";
 
     }
 
     public String getColumnName(int column) {
-        if (column == 0) {
-            return "codigo";
-        }
-        if (column == 1) {
-            return "Nome";
-        }
-        if (column == 2) {
-            return "Genêro";
-        }
+        if (column == 0) return "codigo";
+        if (column == 1) return "Nome";
+        if (column == 2) return "Genêro";
+        if (column == 2) return "Idioma";
+       
 
         return "";
     }

@@ -134,6 +134,21 @@ public class LfsUsuario  implements java.io.Serializable {
     public void setLfsAtivo(String lfsAtivo) {
         this.lfsAtivo = lfsAtivo;
     }
+    
+     @Override
+     public String toString() {
+        return this.lfsIdusuario + " - " + this.lfsNome;
+    }
+     @Override
+      public boolean equals(Object object) {
+        if (object instanceof LfsUsuario) {
+            LfsUsuario usuario = (LfsUsuario) object;
+            if (usuario.getLfsIdusuario() == this.getLfsIdusuario()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

@@ -82,6 +82,6 @@ public class DAO_Cliente extends DAO_Abstract {
     public static void main(String[] args) {
         DAO_Cliente dAO_LfsCliente = new DAO_Cliente();
         dAO_LfsCliente.listAll();
-        System.out.println("Deu certo");
+       
     }
 }

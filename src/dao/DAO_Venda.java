@@ -41,6 +41,36 @@ public class DAO_Venda extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+    public Object listVendedor(String vendedor) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(LfsVenda.class);
+    Integer codigo = Integer.valueOf(vendedor); // converte String para Integer
+    criteria.add(Restrictions.eq("jmjIdCliente", codigo));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return lista;
+}
+
+
+    public Object listValor(double valor) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LfsVenda.class);
+        criteria.add(Restrictions.ge("lfsTotal", valor));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listVendedorValor(String Vendedor, double valor) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(LfsVenda.class);
+    Integer codigo = Integer.valueOf(Vendedor); // converte String para Integer
+    criteria.add(Restrictions.eq("jmjIdCliente", codigo));
+    criteria.add(Restrictions.ge("lfsTotal", valor));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return lista;
+}
 
     @Override
     public List listAll() {
@@ -54,6 +84,6 @@ public class DAO_Venda extends DAO_Abstract {
     public static void main(String[] args) {
         DAO_Venda dAO_LfsVenda = new DAO_Venda();
         dAO_LfsVenda.listAll();
-        System.out.println("Deu certo");
+ 
     }
 }
