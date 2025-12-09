@@ -41,6 +41,34 @@ public class DAO_Cliente extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+    public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LfsCliente.class);
+        criteria.add(Restrictions.like("lfs_Nome_completo", "%" + nome + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listCpf(String cpf) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LfsCliente.class);
+        criteria.add(Restrictions.ge("lfs_cpf", "%" + cpf + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    public Object listNomeCpf(String nome, String cpf) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LfsCliente.class);
+        criteria.add(Restrictions.like("lfs_Nome_completo", "%" + nome + "%"));
+        criteria.add(Restrictions.ge("lfs_cpf", "%" + cpf + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
 
     @Override
     public List listAll() {
