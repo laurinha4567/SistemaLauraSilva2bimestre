@@ -37,7 +37,7 @@ public class DAO_Jogos extends DAO_Abstract {
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsJogos.class);
-        criteria.add(Restrictions.eq("jmjIdCliente", codigo));
+        criteria.add(Restrictions.eq("lfsIdJogo", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -45,7 +45,7 @@ public class DAO_Jogos extends DAO_Abstract {
      public Object listNomeJogo(String NomeJogo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsJogos.class);
-        criteria.add(Restrictions.like("lfs_nome_jogo", "%" + NomeJogo + "%"));
+        criteria.add(Restrictions.like("lfsNomeJogo", "%" + NomeJogo + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -54,7 +54,7 @@ public class DAO_Jogos extends DAO_Abstract {
     public Object listValor(double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsJogos.class);
-        criteria.add(Restrictions.ge("lfs_preco", "%" + valor + "%"));
+        criteria.add(Restrictions.ge("lfsPreco", valor));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -64,7 +64,7 @@ public class DAO_Jogos extends DAO_Abstract {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsJogos.class);
         criteria.add(Restrictions.like("lfsNomeJogo", "%" + NomeJogo + "%"));
-        criteria.add(Restrictions.ge("lfs_preco", "%" + valor + "%"));
+        criteria.add(Restrictions.ge("lfsPreco", valor));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

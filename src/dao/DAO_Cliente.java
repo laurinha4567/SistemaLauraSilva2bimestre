@@ -44,7 +44,7 @@ public class DAO_Cliente extends DAO_Abstract {
     public Object listNome(String nome) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsCliente.class);
-        criteria.add(Restrictions.like("lfs_Nome_completo", "%" + nome + "%"));
+        criteria.add(Restrictions.like("lfsNomeCompleto", "%" + nome + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -53,7 +53,7 @@ public class DAO_Cliente extends DAO_Abstract {
     public Object listCpf(String cpf) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsCliente.class);
-        criteria.add(Restrictions.ge("lfs_cpf", "%" + cpf + "%"));
+        criteria.add(Restrictions.like("lfsCpf", "%" + cpf + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -62,8 +62,8 @@ public class DAO_Cliente extends DAO_Abstract {
     public Object listNomeCpf(String nome, String cpf) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsCliente.class);
-        criteria.add(Restrictions.like("lfs_Nome_completo", "%" + nome + "%"));
-        criteria.add(Restrictions.ge("lfs_cpf", "%" + cpf + "%"));
+        criteria.add(Restrictions.like("lfsNomeCompleto", "%" + nome + "%"));
+        criteria.add(Restrictions.like("lfsCpf", "%" + cpf + "%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

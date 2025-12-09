@@ -160,16 +160,16 @@ public class JDlgConsultaJogos extends javax.swing.JDialog {
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
         // TODO add your handling code here:
-        DAO_Jogos aparelhosDAO = new DAO_Jogos();
+        DAO_Jogos jogosDAO = new DAO_Jogos();
         List lista;
         if ((jTxtNJ.getText().isEmpty() == false) && (jTxtValor.getText().isEmpty() == false)){
-            lista = (List) aparelhosDAO.listNomeJogoValor(jTxtNJ.getText(), Util.strToDouble(jTxtValor.getText()));
+            lista = (List) jogosDAO.listNomeJogoValor(jTxtNJ.getText(), Util.strToDouble(jTxtValor.getText()));
         }else if (jTxtNJ.getText().isEmpty() == false){
-            lista  = (List) aparelhosDAO.listNomeJogo(jTxtNJ.getText());
+            lista  = (List) jogosDAO.listNomeJogo(jTxtNJ.getText());
         }else if (jTxtValor.getText().isEmpty() == false){
-            lista = (List) aparelhosDAO.listValor(Util.strToDouble(jTxtValor.getText()));
+            lista = (List) jogosDAO.listValor(Util.strToDouble(jTxtValor.getText()));
         }else {
-            lista = (List) aparelhosDAO.listAll();
+            lista = (List) jogosDAO.listAll();
         }
         controllerConsultasJogos.setList(lista);
     }//GEN-LAST:event_jBtnConsultarActionPerformed
