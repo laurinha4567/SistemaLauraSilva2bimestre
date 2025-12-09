@@ -45,7 +45,7 @@ public class DAO_Venda extends DAO_Abstract {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(LfsVenda.class);
     Integer codigo = Integer.valueOf(vendedor); // converte String para Integer
-    criteria.add(Restrictions.eq("jmjIdCliente", codigo));
+    criteria.add(Restrictions.eq("idlfsVendedor", codigo));
     List lista = criteria.list();
     session.getTransaction().commit();
     return lista;

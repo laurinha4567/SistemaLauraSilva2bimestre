@@ -26,7 +26,7 @@ public class JDlgConsultaJogos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Consultar Aparelhos");
+        setTitle("Consultar Jogos");
    
         controllerConsultasJogos = new ControllerConsultasJogos();
         DAO_Jogos DAO_jogos = new DAO_Jogos();

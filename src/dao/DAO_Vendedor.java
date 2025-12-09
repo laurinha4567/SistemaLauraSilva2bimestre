@@ -59,7 +59,7 @@ public class DAO_Vendedor extends DAO_Abstract {
         return lista;
     }
 
-    public Object listNomeSalario(String NomeSalario, double salario) {
+    public Object listNomeSalario(String Nome, double salario) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LfsVendedor.class);
         criteria.add(Restrictions.like("lfsNome", "%" + Nome + "%"));
