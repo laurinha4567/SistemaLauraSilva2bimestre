@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/dao/DAO_Vendedor.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/view/JDlgConsultaVendas.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/view/ControllerConsultasVenda.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/view/ControlerVenda.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/bean/LfsJogos.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/dao/DAO_Venda.java</file>
             <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/bean/LfsVendedor.java</file>
+            <file>file:/C:/Users/laura/Documents/LP5/SistemaLauraSilva/src/bean/LfsVenda.java</file>
         </group>
     </open-files>
 </project-private>

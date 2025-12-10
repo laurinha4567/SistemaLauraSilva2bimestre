@@ -41,10 +41,10 @@ public class DAO_Venda extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
-    public Object listVendedor(String vendedor) {
+    public Object listIdVenda(String idvenda) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(LfsVenda.class);
-    criteria.add(Restrictions.eq("lfsVendedor", vendedor));
+    criteria.add(Restrictions.eq("lfsIdVenda",  idvenda));
     List lista = criteria.list();
     session.getTransaction().commit();
     return lista;
@@ -60,10 +60,10 @@ public class DAO_Venda extends DAO_Abstract {
         return lista;
     }
 
-    public Object listVendedorValor(String vendedor, double valor) {
+    public Object listIdVendaValor(String idvenda, double valor) {
     session.beginTransaction();
     Criteria criteria = session.createCriteria(LfsVenda.class);
-    criteria.add(Restrictions.eq("lfsVendedor", vendedor));
+    criteria.add(Restrictions.eq("lfsIdVenda", idvenda));
     criteria.add(Restrictions.ge("lfsTotal", valor));
     List lista = criteria.list();
     session.getTransaction().commit();

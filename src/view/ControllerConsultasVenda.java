@@ -45,7 +45,7 @@ public class ControllerConsultasVenda extends AbstractTableModel {
         if ( columnIndex == 0 ){
             return lfsvenda.getLfsIdVenda();
         } else if (columnIndex ==1) {
-            return lfsvenda.getLfsCliente();            
+            return lfsvenda.getLfsStatusVenda();            
         } else if (columnIndex ==2) {
             return lfsvenda.getLfsTotal();
         } 
@@ -58,7 +58,7 @@ public class ControllerConsultasVenda extends AbstractTableModel {
         if ( columnIndex == 0) {
             return "id";
         } else if ( columnIndex == 1) {
-            return "Cliente";               
+            return "Status Venda";               
         }  else if ( columnIndex == 2) {
             return "Total";
         } 
