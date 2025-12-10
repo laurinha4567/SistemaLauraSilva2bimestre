@@ -56,7 +56,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         jBtnOk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTxtIdVenda = new javax.swing.JTextField();
+        jTxtStatusVenda = new javax.swing.JTextField();
         jTxtValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtnConsultar = new javax.swing.JButton();
@@ -88,7 +88,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("ID Venda");
+        jLabel1.setText("Status Venda");
 
         jLabel2.setText("valor");
 
@@ -113,7 +113,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTxtStatusVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -131,7 +131,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTxtStatusVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,10 +163,10 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         DAO_Venda vendaDAO = new  DAO_Venda();
         List lista;
-        if (!jTxtIdVenda.getText().isEmpty() && !jTxtValor.getText().isEmpty()) {
-            lista = (List) vendaDAO.listIdVendaValor(jTxtIdVenda.getText(), Util.strToDouble(jTxtValor.getText()));
-        } else if (!jTxtIdVenda.getText().isEmpty()) {
-            lista = (List) vendaDAO.listIdVenda(jTxtIdVenda.getText());
+        if (!jTxtStatusVenda.getText().isEmpty() && !jTxtValor.getText().isEmpty()) {
+            lista = (List) vendaDAO.listStatusValor(jTxtStatusVenda.getText(), Util.strToDouble(jTxtValor.getText()));
+        } else if (!jTxtStatusVenda.getText().isEmpty()) {
+            lista = (List) vendaDAO.listStatusVenda(jTxtStatusVenda.getText());
         } else if (!jTxtValor.getText().isEmpty()) {
             lista = (List) vendaDAO.listValor(Util.strToDouble(jTxtValor.getText()));
         } else {
@@ -352,7 +352,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxtIdVenda;
+    private javax.swing.JTextField jTxtStatusVenda;
     private javax.swing.JTextField jTxtValor;
     // End of variables declaration//GEN-END:variables
 }
