@@ -184,7 +184,7 @@ public class JDlgVendasJogos extends javax.swing.JDialog {
         lfsvendasjogos.setLfsJogos((LfsJogos) jCboNomeJogo.getSelectedItem());
         lfsvendasjogos.setLfsQuantidade(Util.strToInt(jTextQuant.getText()) );
         lfsvendasjogos.setLfsValorUnitario(Util.strToDouble(jTextUnitario.getText()) );                
-        jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
+        
         if (incluir == true) {
             jDlgvenda.controlerVendasJogos.addBean(lfsvendasjogos);
         } else {

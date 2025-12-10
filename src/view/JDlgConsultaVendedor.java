@@ -7,6 +7,7 @@ package view;
 import bean.LfsUsuario;
 import dao.DAO_Cliente;
 import dao.DAO_Usuarios;
+import dao.DAO_Vendedor;
 import java.util.ArrayList;
 import java.util.List;
 import tools.Util;
@@ -17,7 +18,7 @@ import view.JDlgUsuario;
  * @author Marcos
  */
 public class JDlgConsultaVendedor extends javax.swing.JDialog {
-  ControllerConsultasCliente controllerConsultasClientes;
+  ControllerConsultasVendedor controllerConsultasVendedor;
     /**
      * Creates new form JDlgMscUsuariosPesquisar
      */
@@ -28,11 +29,11 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Consultar Vendedor");
    
-        controllerConsultasClientes = new ControllerConsultasCliente();
-        DAO_Cliente clienteDAO = new DAO_Cliente();
+        controllerConsultasVendedor = new ControllerConsultasVendedor();
+        DAO_Vendedor vendedorDAO = new DAO_Vendedor();
         List lista = new ArrayList();
-        controllerConsultasClientes.setList(lista);
-        jTable1.setModel(controllerConsultasClientes);
+        controllerConsultasVendedor.setList(lista);
+        jTable1.setModel(controllerConsultasVendedor);
         
     //    controllerMscUsuarios = new ControllerMscUsuarios();
     //    MscUsuariosDAO usuariosDAO = new MscUsuariosDAO();
@@ -56,7 +57,7 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
         jBtnOk = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTxtNome = new javax.swing.JTextField();
-        jTxtVendedor = new javax.swing.JTextField();
+        jTxtSalario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtnConsultar = new javax.swing.JButton();
 
@@ -89,13 +90,13 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
-        jTxtVendedor.addActionListener(new java.awt.event.ActionListener() {
+        jTxtSalario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtVendedorActionPerformed(evt);
+                jTxtSalarioActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Vendedor");
+        jLabel2.setText("Salário");
 
         jBtnConsultar.setText("Consultar");
         jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +124,7 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTxtVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnConsultar)))))
                 .addContainerGap())
@@ -141,7 +142,7 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTxtVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnConsultar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,24 +167,24 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
         // TODO add your handling code here:
-         DAO_Cliente clienteDAO = new  DAO_Cliente();
+        DAO_Vendedor vendedorDAO = new  DAO_Vendedor();
         List lista;
-        if (!jTxtNome.getText().isEmpty() && !jTxtVendedor.getText().isEmpty()) {
-    lista = (List) clienteDAO.listNomeCpf(jTxtNome.getText(), jTxtVendedor.getText());
-} else if (!jTxtNome.getText().isEmpty()) {
-    lista = (List) clienteDAO.listNome(jTxtNome.getText());
-} else if (!jTxtVendedor.getText().isEmpty()) {
-    lista = (List) clienteDAO.listCpf(jTxtVendedor.getText());
-} else {
-    lista = (List) clienteDAO.listAll();
-}
+        if (!jTxtNome.getText().isEmpty() && !jTxtSalario.getText().isEmpty()) {
+            lista = (List) vendedorDAO.listNomeSalario(jTxtNome.getText(), Util.strToDouble(jTxtSalario.getText()));
+        } else if (!jTxtNome.getText().isEmpty()) {
+            lista = (List) vendedorDAO.listNome(jTxtNome.getText());
+        } else if (!jTxtSalario.getText().isEmpty()) {
+            lista = (List) vendedorDAO.listSalario(Util.strToDouble(jTxtSalario.getText()));
+        } else {
+            lista = (List) vendedorDAO.listAll();
+        }
 
-        controllerConsultasClientes.setList(lista);
+        controllerConsultasVendedor.setList(lista);
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
-    private void jTxtVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtVendedorActionPerformed
+    private void jTxtSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtSalarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtVendedorActionPerformed
+    }//GEN-LAST:event_jTxtSalarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,6 +363,6 @@ public class JDlgConsultaVendedor extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTxtNome;
-    private javax.swing.JTextField jTxtVendedor;
+    private javax.swing.JTextField jTxtSalario;
     // End of variables declaration//GEN-END:variables
 }

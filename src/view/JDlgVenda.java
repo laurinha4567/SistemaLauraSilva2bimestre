@@ -412,8 +412,8 @@ public class JDlgVenda extends javax.swing.JDialog {
             }
             
         }
-        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-        Util.habilitar(false, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar,jBtnConfirmar);
+        Util.habilitar(false, jTxtLfs_idVenda, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_observacoes, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente, jBtnCancelar);
         Util.limpar(jTxtLfs_idVenda, jTxtLfs_observacoes, jCboLfs_status_Venda, jFmtLfs_dataVenda, jTxtLfs_total, jCboLfs_fk_vendedor, jCboLfs_fk_cliente);
          controlerVendasJogos.setList(new ArrayList()); 
     }//GEN-LAST:event_jBtnConfirmarActionPerformed

@@ -90,7 +90,7 @@ public class JDlgConsultaVendas extends javax.swing.JDialog {
 
         jLabel1.setText("Status Venda");
 
-        jLabel2.setText("valor");
+        jLabel2.setText("valor Maior que");
 
         jBtnConsultar.setText("Consultar");
         jBtnConsultar.addActionListener(new java.awt.event.ActionListener() {
